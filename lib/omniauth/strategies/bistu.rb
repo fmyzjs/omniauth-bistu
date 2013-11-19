@@ -27,7 +27,7 @@ module OmniAuth
 
       info do
         {
-          'nickname' => raw_info['username'],
+          'nickname' => raw_info['userid'],
           'email' => raw_info['email'],
           'name' => raw_info['username'],
 
@@ -40,7 +40,7 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('users/2/?format=json').parsed
+        @raw_info ||= access_token.get('/bistuapi/me/').parsed
       end
 
     end
