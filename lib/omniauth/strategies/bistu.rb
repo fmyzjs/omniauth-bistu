@@ -27,11 +27,10 @@ module OmniAuth
 
       info do
         {
-          'nickname' => raw_info['userid'],
           'email' => email,
-          'name' => raw_info['username'],
+          'name' => raw_info['userid'],
           'idtype' => raw_info['idtype'],
-
+          'username'=> raw_info['userid'],
         }
       end
 
@@ -43,10 +42,12 @@ module OmniAuth
         #access_token.options[:mode] = :query
         @raw_info ||= access_token.get('/bistuapi/me/').parsed
       end
-      if raw_info['idtype']==2 || raw_info['idtype']==3
-        email=raw_info['userid']+'@'+'bistu.edu.cn'
-      else
-        email=raw_info['userid']+'@'+'mail.bistu.edu.cn'
+      def email
+        if raw_info['idtype']==2 || raw_info['idtype']==3
+          @email=raw_info['userid']+'@'+'bistu.edu.cn'
+        else
+          @email=raw_info['userid']+'@'+'mail.bistu.edu.cn'
+        end
       end
     end
   end

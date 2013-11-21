@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-bistu (0.0.1)
+    omniauth-bistu (0.0.5)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
 
