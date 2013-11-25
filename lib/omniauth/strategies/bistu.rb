@@ -4,9 +4,9 @@ module OmniAuth
   module Strategies
     class Bistu < OmniAuth::Strategies::OAuth2
       option :client_options, {
-        :site => 'http://222.249.250.234/u/',
-        :authorize_url => 'http://222.249.250.234/o/authorize/',
-        :token_url => 'http://222.249.250.234/o/token/'
+        :site => 'http://222.249.250.100/u/',
+        :authorize_url => 'http://222.249.250.100/o/authorize/',
+        :token_url => 'http://222.249.250.100/o/token/'
       }
 
       def request_phase
