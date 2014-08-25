@@ -4,9 +4,9 @@ module OmniAuth
   module Strategies
     class Bistu < OmniAuth::Strategies::OAuth2
       option :client_options, {
-        :site => 'http://222.249.250.100/u/',
-        :authorize_url => 'http://222.249.250.100/o/authorize/',
-        :token_url => 'http://222.249.250.100/o/token/'
+        :site => 'https://222.249.250.89:8443/',
+        :authorize_url => 'https://222.249.250.89:8443/oauth/authorize',
+        :token_url => 'https://222.249.250.89:8443/oauth/token'
       }
 
       def request_phase
@@ -28,7 +28,7 @@ module OmniAuth
       info do
         {
           'email' => email,
-          'name' => raw_info['userid'],
+          'name' => raw_info['username'],
           'idtype' => raw_info['idtype'],
           'username'=> raw_info['userid'],
         }
@@ -40,7 +40,7 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('/bistuapi/me/').parsed
+        @raw_info ||= access_token.get('/m/userinfo.htm').parsed
       end
       def email
         if raw_info['idtype']==2 || raw_info['idtype']==3
