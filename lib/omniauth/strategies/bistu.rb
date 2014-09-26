@@ -43,7 +43,7 @@ module OmniAuth
         @raw_info ||= access_token.get('/m/userinfo.htm').parsed
       end
       def email
-        if raw_info['idtype']==2 || raw_info['idtype']==3
+        if raw_info['idtype']=='J0000' || raw_info['idtype']=='JH001'
           @email=raw_info['userid']+'@'+'bistu.edu.cn'
         else
           @email=raw_info['userid']+'@'+'mail.bistu.edu.cn'
