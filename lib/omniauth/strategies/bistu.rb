@@ -39,7 +39,8 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= (URI.unescape(access_token.get('/m/userinfo.htm'))).parsed
+        res = access_token.get('/m/userinfo.htm')
+        @raw_info ||= (URI.unescape(res)).parsed
       end
       
       def email
