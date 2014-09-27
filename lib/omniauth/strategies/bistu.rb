@@ -1,4 +1,5 @@
 require 'omniauth-oauth2'
+require 'uri'
 
 module OmniAuth
   module Strategies
@@ -38,7 +39,7 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= (url_decode(access_token.get('/m/userinfo.htm'))).parsed
+        @raw_info ||= (URI.unescape(access_token.get('/m/userinfo.htm'))).parsed
       end
       
       def email
@@ -49,10 +50,6 @@ module OmniAuth
         end
       end
       
-      def url_decode(str)  
-        return str.gsub!(/%[a-fA-F0-9]{2}/) { |x| x = x[1..2].hex.chr }  
-      end
-
     end
   end
 end
