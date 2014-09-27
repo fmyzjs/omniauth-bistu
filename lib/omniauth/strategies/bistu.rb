@@ -23,8 +23,6 @@ module OmniAuth
         end
       end
 
-      uid { raw_info['id'].to_s }
-
       info do
         {
           'email' => email,
@@ -40,8 +38,9 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('/m/userinfo.htm').parsed
+        @raw_info ||= url_decode(access_token.get('/m/userinfo.htm')).parsed
       end
+      
       def email
         if raw_info['idtype']=='J0000' || raw_info['idtype']=='JH001'
           @email=raw_info['userid']+'@'+'bistu.edu.cn'
@@ -49,6 +48,11 @@ module OmniAuth
           @email=raw_info['userid']+'@'+'mail.bistu.edu.cn'
         end
       end
+      
+      def url_decode(str)  
+        return str.gsub!(/%[a-fA-F0-9]{2}/) { |x| x = x[1..2].hex.chr }  
+      end
+
     end
   end
 end
