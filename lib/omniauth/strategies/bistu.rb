@@ -23,6 +23,10 @@ module OmniAuth
         end
       end
 
+      uid do
+        raw_info['userid']
+      end
+
       info do
         {
           'email' => email,
