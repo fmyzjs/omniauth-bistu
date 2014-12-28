@@ -9,28 +9,14 @@ module OmniAuth
         :token_url => 'https://222.249.250.89:8443/oauth/token'
       }
 
-      def request_phase
-        super
-      end
-      
-      def authorize_params
-        super.tap do |params|
-          %w[scope client_options].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
-          end
-        end
-      end
-
-      uid { raw_info['userid'] }
+      uid { raw_info['userName'] }
 
       info do
         {
-          'email' => email,
-          'name' => raw_info['username'],
-          'idtype' => raw_info['idtype'],
-          'username'=> raw_info['userid'],
+          'email' => raw_info['email'],
+          'name' => raw_info['realName'],
+          'idtype' => raw_info['idType'],
+          'username'=> raw_info['userName'],
         }
       end
 
@@ -40,15 +26,7 @@ module OmniAuth
 
       def raw_info
         #access_token.options[:mode] = :query
-        @raw_info ||= access_token.get('/m/userinfo.htm').parsed
-      end
-      
-      def email
-        if raw_info['idtype']=='J0000' || raw_info['idtype']=='JH001'
-          @email=raw_info['userid']+'@'+'bistu.edu.cn'
-        else
-          @email=raw_info['userid']+'@'+'mail.bistu.edu.cn'
-        end
+        @raw_info ||= access_token.get('/m/userinfo.htm', {:parse => :json}).parsed
       end
       
     end
