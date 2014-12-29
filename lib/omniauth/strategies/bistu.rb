@@ -16,7 +16,9 @@ module OmniAuth
           'email' => raw_info['email'],
           'name' => raw_info['realName'],
           'idtype' => raw_info['idType'],
-          'username'=> raw_info['userName'],
+          'username' => raw_info['userName'],
+          'avatar' => raw_info['avatar'],
+          'active' => raw_info['active']
         }
       end
 
